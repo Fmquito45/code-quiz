@@ -40,6 +40,7 @@ var x = 0
 
 function start(){
 
+    startQuiz.innerHTML= ''
     questionAnswers.innerHTML = ''
     questionTitle.textContent = questions[x].question
     
@@ -53,10 +54,10 @@ function start(){
     buttonThree.textContent= questions[x].c;
     buttonFour.textContent= questions[x].d;
     
-    buttonOne.addEventListener('click',increase)
-    buttonTwo.addEventListener('click',increase)
-    buttonThree.addEventListener('click',increase)
-    buttonFour.addEventListener('click',increase)
+    buttonOne.addEventListener('click',increase);
+    buttonTwo.addEventListener('click',increase);
+    buttonThree.addEventListener('click',increase);
+    buttonFour.addEventListener('click',increase);
     
     questionAnswers.append(buttonOne,buttonTwo, buttonThree, buttonFour);
     console.log(x);
@@ -67,6 +68,8 @@ function increase(){
     
 };
 
+start();
+
 function begin() {
 var btnStart = document.createElement('button');
 btnStart.textContent= "Are you a SneakerHead?";
@@ -74,6 +77,9 @@ btnStart.textContent= "Are you a SneakerHead?";
 btnStart.addEventListener('click', start);
 
 startQuiz.appendChild(btnStart);
+
+
+
 }
 
 begin();
