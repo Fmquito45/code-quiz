@@ -6,7 +6,7 @@ var questions = [
         c: "November 17, 1963",
         d: "December 17, 1963",
         correct: "b",
-    }
+    },
     {
         question: "When was Michael Jordan's first Air Jordan shoe released?",
         a: "February 1, 1985",
@@ -14,7 +14,7 @@ var questions = [
         c: "April 1, 1985",
         d: "May 1, 1985",
         correct: "c",
-    }
+    },
     {
         question: "Whats the last Air Jordan Line # ? (How many Air Jordan styles are there?",
         a: "Air Jordan XXXVII",
@@ -22,9 +22,9 @@ var questions = [
         c: "Air Jordan XXX",
         d: "Air Jordan V",
         correct: "a",
-    }
+    },
     {
-        question: "What does 'SB' stand for in Nike Sb?"
+        question: "What does 'SB' stand for in Nike SB?",
         a: "Swoosh brand",
         b: "Swag Bucks",
         c: "SkateBoarding",
@@ -33,11 +33,47 @@ var questions = [
     }
 ];
 
+var startQuiz = document.getElementById('start');
+var questionTitle = document.getElementById('title');
+var questionAnswers = document.getElementById('buttons');
+var x = 0
 
-function nextQuestion(questionIndex) {
-   console.log(questions[questionIndex]);
-   document.getElementById('questions-asked').textContent= questions[questionIndex]
+function start(){
+
+    questionAnswers.innerHTML = ''
+    questionTitle.textContent = questions[x].question
+    
+    var buttonOne = document.createElement('button');
+    var buttonTwo = document.createElement('button');
+    var buttonThree = document.createElement('button');
+    var buttonFour = document.createElement('button');
+    
+    buttonOne.textContent= questions[x].a;
+    buttonTwo.textContent= questions[x].b;
+    buttonThree.textContent= questions[x].c;
+    buttonFour.textContent= questions[x].d;
+    
+    buttonOne.addEventListener('click',increase)
+    buttonTwo.addEventListener('click',increase)
+    buttonThree.addEventListener('click',increase)
+    buttonFour.addEventListener('click',increase)
+    
+    questionAnswers.append(buttonOne,buttonTwo, buttonThree, buttonFour);
+    console.log(x);
 }
 
-nextQuestion(0)
-// nextQuestion(1)
+function increase(){
+    x++;
+    
+};
+
+function begin() {
+var btnStart = document.createElement('button');
+btnStart.textContent= "Are you a SneakerHead?";
+
+btnStart.addEventListener('click', start);
+
+startQuiz.appendChild(btnStart);
+}
+
+begin();
