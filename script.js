@@ -36,10 +36,14 @@ var questions = [
 var startQuiz = document.getElementById('start');
 var questionTitle = document.getElementById('title');
 var questionAnswers = document.getElementById('buttons');
-var x = 0
+var countDown = document.querySelector('.timer')
+var x = 0;
+var secondsLeft= 20;
+var timerStarter = false;
+
 
 function start(){
-
+    countDownTimer();
     startQuiz.innerHTML= ''
     questionAnswers.innerHTML = ''
     questionTitle.textContent = questions[x].question
@@ -53,6 +57,8 @@ function start(){
     buttonTwo.textContent= questions[x].b;
     buttonThree.textContent= questions[x].c;
     buttonFour.textContent= questions[x].d;
+
+    
     
     buttonOne.addEventListener('click',increase);
     buttonTwo.addEventListener('click',increase);
@@ -65,15 +71,35 @@ function start(){
 
 function increase(){
     x++;
+    start();
     
 };
+ 
 
-start();
+function countDownTimer(){
+    if(timerStarter === true) return
+    function setTimer() {
+        
+          secondsLeft--;
+          countDown.textContent = secondsLeft + "UNTIL GAME OVER!!!";
+      
+          if(secondsLeft === 0) {
+            clearInterval(timerInterval);
+            
+          }
+    
+        };
+        var timerInterval = setInterval(setTimer,1000);
+        timerStarter = true
+}
+
 
 function begin() {
 var btnStart = document.createElement('button');
 btnStart.textContent= "Are you a SneakerHead?";
-
+startQuiz.innerHTML= '';
+questionTitle.innerHTML= '';
+questionAnswers.innerHTML= '';
 btnStart.addEventListener('click', start);
 
 startQuiz.appendChild(btnStart);
