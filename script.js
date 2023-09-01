@@ -49,6 +49,13 @@ function start(){
     };
 }
 
+function gameOver() {
+    startQuiz.innerHTML= '';
+    questionAnswers.innerHTML = '';
+    questionTitle.innerHTML= '';
+    countDown.textContent= "Game Over: Thank You for Playing!"
+}
+
 function increase(event){
     var answer = questions[x].correct;
     var index = event.target.id;
@@ -59,11 +66,12 @@ function increase(event){
     } else {
         secondsLeft -=3
     }
-    
-   
-    x++;
-    start();
-    
+    if (x < questions.length-1){
+        x++;
+        start();
+    } else {
+        x++
+    };
 };
  
 
@@ -74,16 +82,14 @@ function countDownTimer(){
           secondsLeft--;
           countDown.textContent = secondsLeft + "UNTIL GAME OVER!!!";
       
-          if(secondsLeft === 0) {
+          if(secondsLeft === 0 || x===questions.length) {
             clearInterval(timerInterval);
-            
-          }
-    
+            gameOver();
+          };
         };
         var timerInterval = setInterval(setTimer,1000);
         timerStarter = true
 }
-
 
 function begin() {
     var btnStart = document.createElement('button');
