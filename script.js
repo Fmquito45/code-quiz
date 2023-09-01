@@ -1,42 +1,33 @@
 var questions = [
     {
         question: "What year was Michael Jordan born?",
-        a: "Janurary 17, 1963",
-        b: "February 17, 1963",
-        c: "November 17, 1963",
-        d: "December 17, 1963",
-        correct: "b",
+        options:["Janurary 17, 1963","February 17, 1963", "November 17, 1963","December 17, 1963"],
+        correct: "February 17, 1963",
     },
     {
         question: "When was Michael Jordan's first Air Jordan shoe released?",
-        a: "February 1, 1985",
-        b: "March 1, 1985",
-        c: "April 1, 1985",
-        d: "May 1, 1985",
-        correct: "c",
+        options:["February 1, 1985", "March 1, 1985", "April 1, 1985", "May 1, 1985"],
+        correct: "April 1, 1985",
     },
     {
         question: "Whats the last Air Jordan Line # ? (How many Air Jordan styles are there?",
-        a: "Air Jordan XXXVII",
-        b: "Air Jordan XX3",
-        c: "Air Jordan XXX",
-        d: "Air Jordan V",
-        correct: "a",
+        options:["Air Jordan XXXVII", "Air Jordan XX3", "Air Jordan XXX", "Air Jordan V"],
+        correct: "Air Jordan XXXVII",
     },
     {
         question: "What does 'SB' stand for in Nike SB?",
-        a: "Swoosh brand",
-        b: "Swag Bucks",
-        c: "SkateBoarding",
-        d: "Super Boujee",
-        correct: "c"
+        options:["Swoosh brand", "Swag Bucks", "SkateBoarding", "Super Boujee"],
+        correct: "SkateBoarding",
     }
 ];
+
+var highScore = [];
+var score = 0;
 
 var startQuiz = document.getElementById('start');
 var questionTitle = document.getElementById('title');
 var questionAnswers = document.getElementById('buttons');
-var countDown = document.querySelector('.timer')
+var countDown = document.querySelector('.timer');
 var x = 0;
 var secondsLeft= 20;
 var timerStarter = false;
@@ -44,32 +35,32 @@ var timerStarter = false;
 
 function start(){
     countDownTimer();
-    startQuiz.innerHTML= ''
-    questionAnswers.innerHTML = ''
-    questionTitle.textContent = questions[x].question
+    startQuiz.innerHTML= '';
+    questionAnswers.innerHTML = '';
+    questionTitle.textContent = questions[x].question;
     
-    var buttonOne = document.createElement('button');
-    var buttonTwo = document.createElement('button');
-    var buttonThree = document.createElement('button');
-    var buttonFour = document.createElement('button');
-    
-    buttonOne.textContent= questions[x].a;
-    buttonTwo.textContent= questions[x].b;
-    buttonThree.textContent= questions[x].c;
-    buttonFour.textContent= questions[x].d;
+    for (var i = 0; i<4; i++){
+        var buttons = document.createElement('button');
+        buttons.setAttribute('id', i);
+        buttons.textContent= questions[x].options[i];
+        buttons.addEventListener('click', increase);
+        questionAnswers.append(buttons);
 
-    
-    
-    buttonOne.addEventListener('click',increase);
-    buttonTwo.addEventListener('click',increase);
-    buttonThree.addEventListener('click',increase);
-    buttonFour.addEventListener('click',increase);
-    
-    questionAnswers.append(buttonOne,buttonTwo, buttonThree, buttonFour);
-    console.log(x);
+    };
 }
 
-function increase(){
+function increase(event){
+    var answer = questions[x].correct;
+    var index = event.target.id;
+    var answerSelected = questions[x].options[index];
+
+    if ( answer === answerSelected){
+        score ++;
+    } else {
+        secondsLeft -=3
+    }
+    
+   
     x++;
     start();
     
@@ -77,7 +68,7 @@ function increase(){
  
 
 function countDownTimer(){
-    if(timerStarter === true) return
+    if(timerStarter === true) return;
     function setTimer() {
         
           secondsLeft--;
@@ -95,17 +86,14 @@ function countDownTimer(){
 
 
 function begin() {
-var btnStart = document.createElement('button');
-btnStart.textContent= "Are you a SneakerHead?";
-startQuiz.innerHTML= '';
-questionTitle.innerHTML= '';
-questionAnswers.innerHTML= '';
-btnStart.addEventListener('click', start);
+    var btnStart = document.createElement('button');
+    btnStart.textContent= "Are you a SneakerHead?";
+    startQuiz.innerHTML= '';
+    questionTitle.innerHTML= '';
+    questionAnswers.innerHTML= '';
+    btnStart.addEventListener('click', start);
 
-startQuiz.appendChild(btnStart);
-
-
-
+    startQuiz.appendChild(btnStart);
 }
 
 begin();
